@@ -401,6 +401,19 @@ a { color: var(--accent); }
    MOBILE — Figure 2 spec: 2 columns, 120x90 images, 10px gaps
    ===================================================================== */
 @media (max-width: 480px) {
+
+  .wrap {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .about p,
+  .about ul,
+  .contact p,
+  .contact ul,
+  .lede {
+    max-width: 32em;
+  }
   .nav-toggle { display: flex; }
 
   .nav-menu {
