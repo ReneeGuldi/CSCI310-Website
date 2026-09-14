@@ -17,7 +17,7 @@
   --font-body:    "Source Sans 3", "Segoe UI", sans-serif;
 
   /* layout */
-  --page-max: clamp(680px, 90vw, 1400px);
+  --page-max: clamp(680px, 82vw, 1200px);
   --radius: 10px;
 }
 
@@ -56,8 +56,8 @@ a { color: var(--accent); }
 .wrap {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: clamp(24px, 4vw, 64px);
+  padding-right: clamp(24px, 4vw, 64px);
 }
 
 /* =====================================================================
