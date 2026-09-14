@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Page - Renee Guldi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="wrap nav-row">
+            <a class="brand" href="index.html">Renee Guldi</a>
+            <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false">
+            <span></span><span></span>
+            </button>
+            <nav id="navMenu" class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="project.html">Projects</a>
+            </nav>
+        </div>
+    </header>
+
+<main class="project-page wrap">
+    <div class="project-page-header">
+        <h1>My Projects</h1>
+        <!-- theme toggle is Javascript effect #1-->
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">Dark Mode</button>
+    </div>
+    <section class="demo-showcase" id="demo-note">
+        <h2>JavaScript Demo</h2>
+        <p>A couple of small effects, live and interactive. Separate from the ones already implemented and running on this page (theme toggle, scroll-reveal, this project modal, and the back-to-top button).</p>
+        <div class="demo-widget">
+        <button id="demoCounterBtn" class="btn">Click me!</button>
+        <p id="demoCounterText">Clicked 0 times</p>
+        </div>
+
+        <div class="demo-widget">
+            <p id="demoClock" class="demo-Clock"></p>
+        </div>
+    </section>
+
+    <p>Each block below maps to one of the core outcomes of CSCI-320: designing layouts with HTML/CSS,
+        manipulating the DOM through event-driven JavaScript, building interactive UI with a framework or library,
+        developing 2D/3D applications, connecting a front-end to back-end services, and completing an independent project.
+        Assignments will be added here as they're introduced throughout the semester.
+    </p>
+    <!-- Creating a block grid for 6-projects to be laid out as specified in instructions-->
+     <section class="project-grid" id="projectGrid">
+        <!-- Project 1-->
+        <a class="project-card" href="#demo-note">
+        <div class="project-image">
+            <img src="images/placeholder.jpg" alt="Screenshot of Javascript Demo">
+        </div>
+        <p class="project-label">JavaScript Demo</p>
+        </a>
+
+        <!-- Project 2-->
+        <button class="project-card" data-title="Project 2" data-desc="Future project description">
+            <div class="project-image">
+                <img src="images/placeholder.jpg" alt="Screenshot of Project 2">
+            </div>
+            <p class="project-label">Project 2</p>
+        </button>
+        
+        <!-- Project 3-->
+        <button class="project-card" data-title="Project 3" data-desc="Future project description">
+            <div class="project-image">
+                <img src="images/placeholder.jpg" alt="Screenshot of Project 3">
+            </div>
+            <p class="project-label">Project 3</p>
+        </button>
+
+        <!-- Project 4-->
+        <button class="project-card" data-title="Project 4" data-desc="Future project description">
+            <div class="project-image">
+                <img src="images/placeholder.jpg" alt="Screenshot of Project 4">
+            </div>
+            <p class="project-label">Project 4</p>
+        </button>
+
+        <!-- Project 5-->
+        <button class="project-card" data-title="Project 5" data-desc="Future project description">
+            <div class="project-image">
+                <img src="images/placeholder.jpg" alt="Screenshot of Project 5">
+            </div>
+            <p class="project-label">Project 5</p>
+        </button>
+
+        <!-- Project 6-->
+        <button class="project-card" data-title="Project 6" data-desc="Future project description">
+            <div class="project-image">
+                <img src="images/placeholder.jpg" alt="Screenshot of Project 6">
+            </div>
+            <p class="project-label">Project 6</p>
+        </button>
+     </section>
+</main>
+
+<!-- Project Details Modal -->
+<div id="detailsModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>"
+    <div class="modal-panel" role="dialog" aria-model="true" aria-labelledby="modalTitle">
+        <button class="modal-close" data-close aria-label="Close">&times;</button>
+        <h2 id="modalTitle">Project Title</h2>
+        <p id="modalDescription">Project description goes here.</p>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <p class="wrap">© 2026 Renee Guldi</p>
+</footer>
+
+<button id="backToTop" class="back-to-top" aria-label="Back to Top">&uarr;</button>
+
+<script src="js/script.js"></script>
+</body>
+</html>
