@@ -167,6 +167,7 @@ a { color: var(--accent); }
     text-align: left;
     list-style: disc;
     padding-left: 1.25em;
+    color: var(--text-dim);
 }
 
 .contact {
@@ -186,6 +187,7 @@ a { color: var(--accent); }
     text-align: left;
     list-style: none;
     padding: 0;
+    color: var(--text-dim);
 }
 
 .profile-photo {
