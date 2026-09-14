@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JavaScript Demo - Renee Guldi</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrap nav-row">
+                <a class="brand" href="index.html">Renee Guldi</a>
+                <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false">
+                    <span></span><span></span>
+                </button>
+                <nav id="navMenu" class="nav-menu">
+                    <a href="index.html">Home</a>
+                    <a href="project.html">Projects</a>
+                </nav>
+            </div>
+        </header>
+        <main class="project-page wrap">
+            <a href="project.html" class="back-link">&larr; Back to Projects</a>
+            <section class="demo-showcase" id="demo-note">
+                <h2>JavaScript Demo</h2>
+                <p>A couple of small effects, live and interactive. Separate from the ones already implemented and running on this page (theme toggle, scroll-reveal, this project modal, and the back-to-top button).</p>
+                <div class="demo-widget">
+                    <button id="demoCounterBtn" class="btn">Click me!</button>
+                    <p id="demoCounterText">Clicked 0 times</p>
+                </div>
+
+                <div class="demo-widget">
+                    <p id="demoClock" class="demo-Clock"></p>
+                </div>
+            </section>
+        </main>
+        <footer class="site-footer">
+            <p class="wrap">© 2026 Renee Guldi.</p>
+        </footer>
+        <button id="backToTop" class="back-to-top" aria-label="Back to Top">&uarr;</button>
+        <script src="js/script.js"></script>
+    </body>
+</html>
