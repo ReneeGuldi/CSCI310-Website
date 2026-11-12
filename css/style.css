@@ -137,6 +137,13 @@ a { color: var(--accent); }
     text-align: left; 
 }
 
+.home-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
 .btn {
   display: inline-block;
   margin-top: 18px;
