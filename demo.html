@@ -4,40 +4,56 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>JavaScript Demo - Renee Guldi</title>
+        <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <a class="skip-link" href="#main">Skip to content</a>
         <header class="site-header">
             <div class="wrap nav-row">
                 <a class="brand" href="index.html">Renee Guldi</a>
-                <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false">
+                <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="navMenu">
                     <span></span><span></span>
                 </button>
                 <nav id="navMenu" class="nav-menu">
                     <a href="index.html">Home</a>
-                    <a href="project.html">Projects</a>
+                    <a href="project.html" class="active">Projects</a>
+                    <a href="resume.html">Resume</a>
+                    <a href="index.html#contact">Contact</a>
                 </nav>
             </div>
         </header>
-        <main class="project-page wrap">
+        <main id="main" class="project-page wrap">
             <a href="project.html" class="back-link">&larr; Back to Projects</a>
             <section class="demo-showcase" id="demo-note">
                 <h2>JavaScript Demo</h2>
-                <p>A couple of small effects, live and interactive. Separate from the ones already implemented and running on this page (theme toggle, scroll-reveal, this project modal, and the back-to-top button).</p>
+                <p>A couple of small effects, live and interactive. These are separate from the effects already running across the site (theme toggle, time-of-day greeting, scroll-reveal, the project modal, and the back-to-top button).</p>
                 <div class="demo-widget">
                     <button id="demoCounterBtn" class="btn">Click me!</button>
-                    <p id="demoCounterText">Clicked 0 times</p>
+                    <p id="demoCounterText">Button clicked 0 times.</p>
                 </div>
 
                 <div class="demo-widget">
-                    <p id="demoClock" class="demo-Clock"></p>
+                    <p id="demoClock" class="demo-clock"></p>
                 </div>
             </section>
         </main>
         <footer class="site-footer">
-            <p class="wrap">© 2026 Renee Guldi.</p>
+            <div class="wrap footer-row">
+                <p>© <span id="year">2026</span> Renee Guldi.</p>
+                <p class="footer-links">
+                    <a href="https://www.linkedin.com/in/rguldi" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://github.com/ReneeGuldi" target="_blank" rel="noopener">GitHub</a>
+                    <a href="index.html#contact">Contact</a>
+                </p>
+            </div>
         </footer>
         <button id="backToTop" class="back-to-top" aria-label="Back to Top">&uarr;</button>
+        <script src="js/config.js"></script>
         <script src="js/script.js"></script>
+        <script src="js/chatbot.js"></script>
     </body>
 </html>

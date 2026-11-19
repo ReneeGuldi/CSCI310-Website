@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Confusion matrix: 74 fraud caught, 24 missed, 10 false alarms">
+  <rect width="400" height="300" fill="#14202B"/>
+  <text x="24" y="38" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#E8E2D4">Fraud detection · confusion matrix</text>
+  <g font-family="Segoe UI, Arial, sans-serif" text-anchor="middle">
+    <rect x="70" y="62" width="150" height="100" rx="8" fill="#1E3A3A"/>
+    <text x="145" y="112" font-size="34" font-weight="700" fill="#5FB3A8">56,854</text>
+    <text x="145" y="138" font-size="13" fill="#A9B4BF">honest · cleared</text>
+    <rect x="228" y="62" width="150" height="100" rx="8" fill="#3A2A1E"/>
+    <text x="303" y="112" font-size="34" font-weight="700" fill="#D9A441">10</text>
+    <text x="303" y="138" font-size="13" fill="#A9B4BF">false alarms</text>
+    <rect x="70" y="170" width="150" height="100" rx="8" fill="#3A1E22"/>
+    <text x="145" y="220" font-size="34" font-weight="700" fill="#E07A6F">24</text>
+    <text x="145" y="246" font-size="13" fill="#A9B4BF">fraud missed</text>
+    <rect x="228" y="170" width="150" height="100" rx="8" fill="#1E3A3A"/>
+    <text x="303" y="220" font-size="34" font-weight="700" fill="#5FB3A8">74</text>
+    <text x="303" y="246" font-size="13" fill="#A9B4BF">fraud caught</text>
+    <text x="40" y="118" font-size="12" fill="#A9B4BF" transform="rotate(-90 40 166)">actual</text>
+  </g>
+</svg>

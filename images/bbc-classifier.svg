@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Accuracy climbing from 85.17% to 95.51% across tuning runs">
+  <rect width="400" height="300" fill="#14202B"/>
+  <text x="24" y="38" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#E8E2D4">Article classifier · test accuracy</text>
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#A9B4BF" text-anchor="middle">
+    <rect x="40"  y="117" width="60" height="133" rx="5" fill="#3B4B5A"/><text x="70"  y="108" fill="#E8E2D4" font-weight="700">85.2%</text><text x="70"  y="270">first try</text>
+    <rect x="125" y="226" width="60" height="24"  rx="5" fill="#E07A6F"/><text x="155" y="217" fill="#E07A6F" font-weight="700">46%</text><text x="155" y="270">SGD (reverted)</text>
+    <rect x="210" y="96"  width="60" height="154" rx="5" fill="#5FB3A8" opacity="0.7"/><text x="240" y="87"  fill="#E8E2D4" font-weight="700">92.8%</text><text x="240" y="270">TF-IDF</text>
+    <rect x="295" y="68"  width="60" height="182" rx="5" fill="#D9A441"/><text x="325" y="59"  fill="#D9A441" font-weight="700">95.5%</text><text x="325" y="270">Doc2Vec final</text>
+    <line x1="30" y1="250" x2="370" y2="250" stroke="#3B4B5A"/>
+  </g>
+</svg>

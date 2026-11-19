@@ -4,83 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects Page - Renee Guldi</title>
+    <meta name="description" content="Projects by Renee Guldi, including a Three.js survival shooter, its real-time multiplayer expansion, machine learning work, and CSCI-310 classwork.">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
         <div class="wrap nav-row">
             <a class="brand" href="index.html">Renee Guldi</a>
-            <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false">
-            <span></span><span></span>
+            <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="navMenu">
+                <span></span><span></span>
             </button>
             <nav id="navMenu" class="nav-menu">
                 <a href="index.html">Home</a>
-                <a href="project.html">Projects</a>
+                <a href="project.html" class="active" aria-current="page">Projects</a>
+                <a href="resume.html">Resume</a>
+                <a href="index.html#contact">Contact</a>
             </nav>
         </div>
     </header>
 
-<main class="project-page wrap">
+<main id="main" class="project-page wrap">
     <div class="project-page-header">
-        <h1>My Project</h1>
+        <h1>Projects</h1>
         <!-- theme toggle is Javascript effect #1-->
         <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">Dark Mode</button>
     </div>
-    <p>Each block below maps to one of the core outcomes of CSCI-310: designing layouts with HTML/CSS,
-        manipulating the DOM through event-driven JavaScript, building interactive UI with a framework or library,
-        developing 2D/3D applications, connecting a front-end to back-end services, and completing an independent project.
-        Assignments will be added here as they're introduced throughout the semester.
+    <p class="project-intro">
+        Things I've designed, built and shipped. Start with the case study for the deepest look at how I work,
+        or <strong>click any card</strong> for a quick write-up with links to try it or read the code.
     </p>
-    <!-- Creating a block grid for 6-projects to be laid out as specified in instructions-->
-     <section class="project-grid" id="projectGrid">
-        <!-- Project 1-->
-        <a class="project-card" href="demo.html">
-        <div class="project-image">
-            <img src="images/javaScriptdemo.png" alt="Screenshot of Javascript Demo">
+
+    <!-- Featured Case Study -->
+     <a class="cs-banner" href="last-signal-case-study.html">
+        <img src="images/last-signal-mltiplr.png" alt="" loading="lazy">
+        <div>
+            <p class="eyebrow">Case Study</p>
+            <h2>The Last Signal: from prototype to 8-player multiplayer</h2>
+            <p>The architecture, the bugs, and the trade-offs behind a real-time browser game built with Three.js, Node.js and Socket.IO</p>
+            <span class="cs-banner-cta">Read the case study &rarr;</span>
         </div>
-        <p class="project-label">Project 1 - JavaScript Demo</p>
-        </a>
+     </a>
+
+    <h2 class="project-section-title">Machine Learning</h2>
+    <p class="project-section-note">
+        Two PyTorch projects where the interesting part was choosing the right measure of success and testing one change at a time.
+    </p>
+    <section class="project-grid" aria-label="Machine learning projects">
+        <button type="button" class="project-card" data-project="ml1">
+            <div class="project-image">
+                <img src="images/fraud-detection.svg" alt="Confusion matrix showing 74 fraud cases caught and 10 false alarms" loading="lazy">
+            </div>
+            <p class="project-label">Credit Card Fraud Detection</p>
+        </button>
+        <button type="button" class="project-card" data-project="ml2">
+            <div class="project-image">
+                <img src="images/bbc-classifier.svg" alt="Bar chart of accuracy rising from 85% to 95.5%" loading="lazy">
+            </div>
+            <p class="project-label">BBC News Article Classifier</p>
+        </button>
+    </section>
+
+    <h2 class="project-section-title">CSCI-310 Classwork</h2>
+    <p class="project-section-note">
+        Four projects from GUI &amp; Game Programming at the University of Indianapolis, covering HTML/CSS layout,
+        event-driven JavaScript, 3D in the browser, and connecting a front-end to a back-end.
+    </p>
+
+    <!-- Creating a block grid for 4-projects, laid out in conjecture with assignment specifications (Originally planned for 6 projects: desktop: 3- columns,  200x150, images; mobile: 2 columns 12x90 images). Each card opens the details modal (which was JavaScript effect #4 for the assignment); the write ups live within js/projects.js-->
+         <section class="project-grid" id="projectGrid" aria-label="Projects">
+        <!-- Project 1-->
+        <button type="button" class="project-card" data-project="p1">
+            <div class="project-image">
+                <img src="images/javaScriptdemo.png" alt="Screenshot of the JavaScript demo page" loading="lazy">
+            </div>
+            <p class="project-label">Project 1 - JavaScript Demo</p>
+        </button>
 
         <!-- Project 2-->
-        <a class="project-card" href="https://reneeguldi.github.io/Last_Signal/">
+        <button type="button" class="project-card" data-project="p2">
             <div class="project-image">
-                <img src="images/last-signal.png" alt="Last Signal screenshot">
+                <img src="images/last-signal.png" alt="Screenshot of The Last Signal, a low-poly 3D survival game" loading="lazy">
             </div>
             <p class="project-label">Project 2 - Last Signal (3D Game)</p>
-        </a>
-        
+        </button>
+
         <!-- Project 3-->
-        <a class="project-card" href="https://last-signal-multiplayer.onrender.com/">
+        <button type="button" class="project-card" data-project="p3">
             <div class="project-image">
-                <img src="images/last-signal-mltiplr.png" alt="Screenshot of Last Signal  Project 3">
+                <img src="images/last-signal-mltiplr.png" alt="Screenshot of The Last Signal multiplayer edition" loading="lazy">
             </div>
             <p class="project-label">Project 3 - Last Signal (3D Game + Multiplayer)</p>
-        </a>
+        </button>
 
         <!-- Project 4-->
-        <button class="project-card" data-title="Project 4" data-desc="Future project description">
+        <button type="button" class="project-card" data-project="p4">
             <div class="project-image">
-                <img src="images/placeholder.jpg" alt="Screenshot of Project 4">
+                <img src="images/placeholder.jpg" alt="Placeholder image for Project 4" loading="lazy">
             </div>
-            <p class="project-label">Project 4</p>
+            <p class="project-label">Project 4 - Coming Soon</p>
         </button>
-
-        <!-- Project 5-->
-        <button class="project-card" data-title="Project 5" data-desc="Future project description">
-            <div class="project-image">
-                <img src="images/placeholder.jpg" alt="Screenshot of Project 5">
-            </div>
-            <p class="project-label">Project 5</p>
-        </button>
-
-        <!-- Project 6-->
-        <button class="project-card" data-title="Project 6" data-desc="Future project description">
-            <div class="project-image">
-                <img src="images/placeholder.jpg" alt="Screenshot of Project 6">
-            </div>
-            <p class="project-label">Project 6</p>
-        </button>
-     </section>
+    </section>
 </main>
 
 <!-- Project Details Modal -->
@@ -88,17 +116,29 @@
     <div class="modal-backdrop" data-close></div>
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <button class="modal-close" data-close aria-label="Close">&times;</button>
+        <p id="modalEyebrow" class="eyebrow"></p>
         <h2 id="modalTitle">Project Title</h2>
         <p id="modalDescription">Project description goes here.</p>
+        <div id="modalExtra"></div>
     </div>
 </div>
 
 <footer class="site-footer">
-    <p class="wrap">© 2026 Renee Guldi</p>
+    <div class="wrap footer-row">
+        <p>© <span id="year">2026</span> Renee Guldi</p>
+        <p class="footer-links">
+            <a href="https://www.linkedin.com/in/rguldi" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/ReneeGuldi" target="_blank" rel="noopener">GitHub</a>
+            <a href="index.html#contact">Contact</a>
+        </p>
+    </div>
 </footer>
 
 <button id="backToTop" class="back-to-top" aria-label="Back to Top">&uarr;</button>
 
+<script src="js/config.js"></script>
+<script src="js/projects.js"></script>
 <script src="js/script.js"></script>
+<script src="js/chatbot.js"></script>
 </body>
 </html>

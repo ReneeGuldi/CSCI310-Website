@@ -4,74 +4,278 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Renee Guldi - Portfolio</title>
+        <meta name="description" content="Computer Science (Software Engineering) student at the University of Indianapolis, seeking a software development internship.">
+        <meta property="og:title" content="Renee Guldi - Portfolio">
+        <meta property="og:image" content="images/last-signal-mltiplr.png">
+        <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <a class="skip-link" href="#main">Skip to main content</a>
         <!-- Navigation -->
          <header class="site-header">
             <div class="wrap nav-row">
                 <a class="brand" href="index.html">Renee Guldi</a>
-                <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false">
+                <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="navMenu">
                     <span></span><span></span>
                 </button>
                 <nav id="navMenu" class="nav-menu">
                     <a href="index.html">Home</a>
                     <a href="project.html">Projects</a>
+                    <a href="resume.html">Resume</a>
+                    <a href="#contact">Contact</a>
                 </nav>
             </div>
          </header>
-         <main>
-            <section class="hero wrap">
+
+         <main id="main">
+            <!-- HERO -->
+             <section class="hero wrap">
                 <div class="project-page-header">
                     <div>
                         <p id="greeting" class="eyebrow"></p>
                         <h1>Hello! I'm Renee Guldi</h1>
                     </div>
                     <!-- theme toggle JavaScript effect #1 -->
-                     <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">Dark Mode</button>
-                </div>
-                <p class="lede">
-                    I am a student at the University of Indianapolis that is building small web projects in my CSCI-310 class "GUI & Game Programming."
-                    My degree is in Computer Science with a concentration on Software Engineering. 
-                    I am currently looking for an internship in the field of software development.
-                </p>
-                <a class="btn" href="project.html">View My Projects</a>
-            </section>
+                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">Dark Mode</button>
+                    </div>
+                    <p class="lede">
+                        I am a student at the University of Indianapolis, majoring in Computer Science with a concentration in Software Engineering. I have been working on small web-projects in my CSCI-310 class "GUI &amp; Game Programming." 
+                        I am seeking a software development internship to gain practical experience and contribute to innovative projects. My passion lies in creating efficient and user-friendly applications, and I am eager to apply my skills in a professional setting.
+                    </p>
+                    <ul class="chip-row" aria-label="QuickFacts">
+                        <li class="chip chip-status"><span class="dot" aria-hidden="true"></span> Open to software development internships</li>
+                        <li class="chip">B.S. Computer Science · University of Indianapolis</li>
+                        <li class="chip">A.A.S. Software Development · Ivy Tech Community College</li>
+                    </ul>
+                    <div class="btn-row">
+                        <a class="btn" href="project.html">View My Projects</a>
+                        <a class="btn btn-ghost" href="#contact">Get in Touch with Me</a>
+                    </div>
+             </section>
 
-            <section class="about wrap" id="about">
+             <!-- ABOUT -->
+              <section class="about wrap" id="about">
                 <h2>About Me</h2>
                 <p>
-                    I am a passionate Computer Science student at the <a href="https://uindy.edu/" target="_blank" rel="noopener">University of Indianapolis</a>, passionate about software development and web technologies. I earned my Associate of Applied Science in Software Development from <a href="https://www.ivytech.edu/" target="_blank" rel="noopener">Ivy Tech Community College</a> in May of 2025.
-                    My journey in programming has led me to explore various aspects of software engineering, from front-end development to back-end systems, full-stack development, database management, automation, and building tools that improve workflow efficiency and usability. 
-                    I enjoy creating interactive and user-friendly applications that solve real-world problems. 
-                    In my free time, I like to work on my own personal projects and stay updated with the latest trends in technology.
+                    I am a Computer Science student at the <a href="https://uindy.edu" target="_blank" rel="noopener">University of Indianapolis</a>, passionate about software development and web technologies. I earned my Associate of Applied Science in Software Development from <a href="https://www.ivytech.edu/" target="_blank" rel="noopener">Ivy Tech Community College</a> in May of 2025. My journey in programming has led me to explore various aspects of software engineering, from front-end development to back-end systems, full-stack development, database management, automation, and building tools that improve workflow efficiency and usability. I enjoy creating interactive and user-friendly applications that solve real-world problems and enhance the user experience. In my free time, I like to work on my own personal projects and stay up to date on the latest trends and technologies in the software development industry.
                 </p>
                 <p>
-                    Alongside my academic experiences, I also have several years of professional experience working with:
-                    <ul>
-                        <li>Internal systems management</li>
-                        <li>Data auditing and validation</li>
-                        <li>Workflow optimization</li>
-                        <li>Operational problem-solving</li>
-                        <li>Process standardization</li>
-                    </ul>
+                    Before software, I spent four-plus years on the other side of the screen: verifying DOT compliance files and documenting patient care in EHR systems. Being the person who actually <em>uses</em> workflow software every day has taught me to start with a user's pain point, to test a single change at a time, and pick the metric that tells the whole story.
                 </p>
+                <p>
+                    Alongside my academic experiences, I also have several years of professional experience working with: </p>
+                    <ul class="experience-grid">
+                        <li><strong>Internal systems management</strong><span>Keeping the tools a team depends on organized, current, and running effectively</span></li>
+                        <li><strong>Data auditing &amp; validation</strong><span>Catching errors and inconsistencies before they become problematic.</span></li>
+                        <li><strong>Workflow optimization</strong><span>Finding the slow or repetitive steps in a process and working to streamline them.</span></li>
+                        <li><strong>Operational problem-solving</strong><span>Tracking down the root cause when day-to-day work breaks down.</span></li>
+                        <li><strong>Process standardization</strong><span>Turning one-off fixes into standardized, documented procedures.</span></li>
+                    </ul>
+              </section>
+
+            <!-- EXPERIENCE -->
+            <section class="experience wrap" id="experience">
+                <h2>Experience</h2>
+                <ol class="timeline">
+                    <li>
+                        <p class="timeline-when">April 2022 - Present</p>
+                        <h3>Compliance Specialist · Indiana Testing, Inc</h3>
+                        <ul>
+                            <li>Replaced the team's paper tracking, where expiring documents or missing driver files were easy to miss, with a Google Sheets tracker now used team-wide as the log for 300+ applications a month.</li>
+                            <li>Turned my manual checks into formulas and conditional formatting that flag PSP/CBC requirements, expiring documents and missing paperwork before the 30-day deadline.</li>
+                            <li>Verify 300+ DOT applications monthly under FMCSA regulations and guide 30+ clients a month through audits.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p class="timeline-when">Oct 2020 – Apr 2022</p>
+                        <h3>Medical Assistant · Indiana Neurology &amp; Pain Center</h3>
+                        <ul>
+                            <li>Documented procedure notes and entered billing codes in EHR systems daily, learning firsthand where clinical software slows users down.</li>
+                            <li>Recorded vitals, maintained patient charts and assisted with procedures in a high-volume neurology practice.</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h2 class="sub-h2">Leadership</h2>
+                <div class="leader-grid">
+                    <article>
+                        <p class="timeline-when">Spring 2026 · University of Indianapolis</p>
+                        <h3>Project Manager, Engineering Design Projects</h3>
+                        <p>Took over as project manager mid-semester and delivered both projects: a Lego sorting machine run with Scrum and a zipline speedometer run with Waterfall. Programmed and integrated sensors for an Arduino robot (RC navigation, path following, IR tape-tracking, ultrasonic wall detection).</p>
+                    </article>
+                    <article>
+                        <p class="timeline-when">2023 – 2025 · Ivy Tech Community College</p>
+                        <h3>Team Lead, Game Development Projects</h3>
+                        <p>Led three Unity games on three-person teams, owning game logic and scene design. Mapped branching story paths for a Python narrative game before writing any code.</p>
+                    </article>
+                </div>
             </section>
 
-            <section id="contact" class="contact wrap">
-                <h2>Contact Me</h2>
-                <p>If you would like to get in touch, please reach out via email or connect with me on LinkedIn.</p>
-                <ul>
-                    <li>Email: <a href="mailto:r.guldi@outlook.com">r.guldi@outlook.com</a></li>
-                    <li>LinkedIn: <a href="https://www.linkedin.com/in/rguldi" target="_blank" rel="noopener">Renee Guldi</a></li>
-                </ul>
+              <!-- SKILLS -->
+               <section class="skills wrap" id="skills">
+                <h2>What I Work With</h2>
+                <p>What I have used across my coursework, along with my own projects and on the job.</p>
+                <div class="skill-groups">
+                    <div class="skill-group">
+                        <h3>Languages</h3>
+                        <ul class="chip-row">
+                            <li class="chip">Python</li>
+                            <li class="chip">Java</li>
+                            <li class="chip">C#</li>
+                            <li class="chip">C++</li>
+                            <li class="chip">Kotlin</li>
+                            <li class="chip">JavaScript</li>
+                            <li class="chip">SQL (MySQL, PostgreSQL)</li>
+                            <li class="chip">HTML/CSS</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group">
+                        <h3>Frameworks &amp; Libraries</h3>
+                        <ul class="chip-row">
+                            <li class="chip">PyTorch</li>
+                            <li class="chip">pandas</li>
+                            <li class="chip">NumPy</li>
+                            <li class="chip">Gensim (Doc2Vec)</li>
+                            <li class="chip">Django</li>
+                            <li class="chip">.NET</li>
+                            <li class="chip">Unity</li>
+                            <li class="chip">Three.js</li>
+                            <li class="chip">cannon-es</li>
+                            <li class="chip">Node.js</li>
+                            <li class="chip">Socket.IO</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group">
+                        <h3>Tools</h3>
+                        <ul class="chip-row">
+                            <li class="chip">Git &amp; GitHub</li>
+                            <li class="chip">Docker</li>
+                            <li class="chip">Jupyter</li>
+                            <li class="chip">VS Code</li>
+                            <li class="chip">Android Studio</li>
+                            <li class="chip">Postman</li>
+                            <li class="chip">Arduino</li>
+                            <li class="chip">Render</li>
+                            <li class="chip">Excel / Google Sheets</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group">
+                        <h3>Practices</h3>
+                        <ul class="chip-row">
+                            <li class="chip">Agile / Scrum</li>
+                            <li class="chip">Object-oriented design</li>
+                            <li class="chip">Unit &amp; integration testing</li>
+                            <li class="chip">CI/CD</li>
+                            <li class="chip">Quality assurance</li>
+                        </ul>
+                    </div>
+                </div>
             </section>
-        </main>
 
-        <footer class="site-footer">
-            <p class="wrap">© 2026 Renee Guldi.</p>
-        </footer>
-        <button id="backToTop" class="back-to-top" aria-label="Back to Top">&uarr;</button>
+            <!-- FEATURED PROJECT -->
+             <section class="featured wrap" id="featured">
+                <h2>Featured Project</h2>
+                <article class="featured-card">
+                    <a class="featured-image" href="project.html">
+                        <img src="images/last-signal-mltiplr.png" alt="Screenshot of The Last Signal multiplayer edition" loading="lazy">
+                    </a>
+                    <div class="featured-body">
+                        <p class="eyebrow">Three.js · Socket.IO · Node.js</p>
+                        <h3>The Last Signal: Multiplayer</h3>
+                        <p>
+                            A first-person survival shooter that runs in the browser, with real-time multiplayer for up to 8 players. I built the game, the physics, the custom 3D models, and the Node.js server that keeps every player in sync.
+                        </p>
+                        <div class="btn-row">
+                            <a class="btn" href="https://last-signal-multiplayer.onrender.com/" target="_blank" rel="noopener">Play it</a>
+                            <a class="btn btn-ghost" href="project.html">All projects</a>
+                        </div>
+                    </div>
+                </article>
+             </section>
+
+             <!-- EDUCATION-->
+              <section class="education wrap" id="education">
+                <h2>Education</h2>
+                <ol class="timeline">
+                    <li>
+                        <p class="timeline-when">In Progress</p>
+                        <h3>B.S. Computer Science, Software Engineering concentration</h3>
+                        <p><a href="https://uindy.edu/" target="_blank" rel="noopener">University of Indianapolis</a> · Coursework includes CSCI-310 GUI &amp; Game Programming</p>
+                    </li>
+                    <li>
+                        <p class="timeline-when">May 2025</p>
+                        <h3>A.A.S. Software Development</h3>
+                        <p><a href="https://www.ivytech.edu" target="_blank" rel="noopener">Ivy Tech Community College</a></p>
+                    </li>
+                </ol>
+              </section>
+
+              <!-- CONTACT -->
+               <section id="contact" class="contact wrap">
+                    <h2>Contact Me</h2>
+                    <p>
+                        Interested in working together, or have a question about one of my projects? Send me a message below and it will come straight to my inbox. You can also connect with me on LinkedIn, or ask the chat assistant in the corner.
+                    </p>
+
+                    <div class="contact-layout">
+                        <!-- Set to where messages are delivered by Web3Forms so my email address will never appear within the page's source for safety -- Access key set within js/config.js -->
+                         <form id="contactForm" class="contact-form" novalidate>
+                            <div class="field">
+                                <label for="cf-name">Name</label>
+                                <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="100">
+                            </div>
+                            <div class="field">
+                                <label for="cf-email">Your E-Mail</label>
+                                <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200">
+                            </div>
+                            <div class="field">
+                                <label for="cf-topic">What's this about?</label>
+                                <select id="cf-topic" name="topic">
+                                    <option>Internship or job opportunity</option>
+                                    <option>Resume Request</option>
+                                    <option>Question about a project</option>
+                                    <option>Collaboration</option>
+                                    <option>Something else</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="cf-message">Message</label>
+                                <textarea id="cf-message" name="message" rows="5" required maxlength="40000"></textarea>
+                            </div>
+                            <!-- Honeypot: hidden from real people; but if bots fill out the form they will get rejected -->
+                             <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                             <button type="submit" class="btn">Send Message</button>
+                             <p id="contactStatus" class="form-status" role="status" aria-live="polite"></p>
+                         </form>
+
+                         <aside class="contact-aside">
+                            <h3>Elsewhere</h3>
+                            <ul class="contact-links">
+                                <li><a href="https://www.linkedin.com/in/rguldi" target="_blank" rel="noopener">LinkedIn</a><span>Best for professional connections</span></li>
+                                <li><a href="https://github.com/ReneeGuldi" target="_blank" rel="noopener">GitHub</a><span>Source code for everything here</span></li>
+                            </ul>
+                         </aside>
+                    </div>
+               </section>
+         </main>
+
+         <footer class="site-footer">
+            <div class="wrap footer-row">
+                <p>© <span id="year">2026</span> Renee Guldi.</p>
+                <p class="footer-links">
+                    <a href="https://www.linkedin.com/in/rguldi" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://github.com/ReneeGuldi" target="_blank" rel="noopener">GitHub</a>
+                    <a href="#contact">Contact</a>
+                </p>
+            </div>
+         </footer>
+         <button id="backToTop" class="back-to-top" aria-label="Back to Top">&uarr;</button>
+        <script src="js/config.js"></script>
         <script src="js/script.js"></script>
+        <script src="js/chatbot.js"></script>
     </body>
 </html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resume - Renee Guldi</title>
+        <meta name="description" content="Resume of Renee Guldi: Computer Science student at the University of Indianapolis with 4+ years in compliance and healthcare operations, seeking a software development internship.">
+        <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Skip to content</a>
+        <header class="site-header">
+            <div class="wrap nav-row">
+                <a class="brand" href="index.html">Renee Guldi</a>
+                <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="navMenu">
+                    <span></span><span></span>
+                </button>
+                <nav id="navMenu" class="nav-menu">
+                    <a href="index.html">Home</a>
+                    <a href="project.html">Projects</a>
+                    <a href="resume.html" class="active" aria-current="page">Resume</a>
+                    <a href="index.html#contact">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+
+        <main id="main" class="resume wrap">
+            <div class="resume-actions">
+                <a class="btn" href="index.html?topic=resume#contact">Request my full resume (PDF)</a>
+                <button type="button" class="btn btn-ghost" onclick="window.print()">Print this page</button>
+            </div>
+            <article class="resume-sheet">
+                <header class="resume-head">
+                    <h1>Renee Guldi</h1>
+                    <p class="resume-title">Computer Science Student · Software Developer</p>
+                    <p class="resume-contact">
+                        Indianapolis, IN · 
+                            <a href="https://github.com/ReneeGuldi" target="_blank" rel="noopener">github.com/ReneeGuldi</a> · 
+                            <a href="https://www.linkedin.com/in/rguldi" target="_blank" rel="noopener">linkedin.com/in/rguldi</a> · 
+                            <a href="index.html#contact">Contact form</a>
+                    </p>
+                </header>
+
+                <section>
+                    <h2>Professional Summary</h2>
+                    <p>
+                        Computer Science student (B.S., expected May 2028) and Software Development graduate with 4+ years in regulatory compliance and healthcare operations.
+                        Years as the person <em>using</em> workflow software taught me to start with the user's pain point, test one change at a time, and choose the metric that tells the truth.
+                        I turned a paper-based compliance process into a tracker my whole team adopted, built a real-time multiplayer browser game, and have led agile student teams in Python, Java, C# and SQL.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Education</h2>
+                    <div class="r-item">
+                        <div class="r-row"><h3>University of Indianapolis</h3><span>Expected May 2028</span></div>
+                        <p>B.S. Computer Science · Concentration in Software Engineering</p>
+                    </div>
+                    <div class="r-item">
+                <div class="r-row"><h3>Ivy Tech Community College</h3><span>May 2025</span></div>
+                    <p>A.A.S. Software Development · Dean's List: Fall 2023, Spring 2024, Summer 2024, Fall 2024</p>
+                </div>
+                </section>
+
+                <section>
+                    <h2>Experience</h2>
+                    <div class="r-item">
+                        <div class="r-row"><h3>Compliance Specialist · Indiana Testing, Inc.</h3><span>Apr 2022 – Present</span></div>
+                        <ul>
+                            <li>Replaced the team's paper tracking, where expiring documents or missing driver files were easy to miss, with a Google Sheets tracker adopted team-wide as the log for 300+ applications a month.</li>
+                            <li>Turned my manual checks into formulas and conditional formatting that flag PSP/CBC requirements, expiring documents and missing paperwork before the 30-day deadline.</li>
+                            <li>Verify 300+ DOT applications monthly under FMCSA regulations and guide 30+ clients a month through audits.</li>
+                        </ul>
+                    </div>
+                    <div class="r-item">
+                        <div class="r-row"><h3>Medical Assistant · Indiana Neurology &amp; Pain Center</h3><span>Oct 2020 – Aug 2021 &amp; Jan 2022 – Apr 2022</span></div>
+                        <ul>
+                            <li>Documented procedure notes and entered billing codes in EHR systems daily, learning firsthand where clinical software slows users down.</li>
+                            <li>Recorded vitals, maintained patient charts and assisted with procedures in a high-volume neurology practice.</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h2>Projects</h2>
+                    <div class="r-item">
+                        <div class="r-row"><h3>The Last Signal: Multiplayer · Three.js, Node.js, Socket.IO, Docker</h3><a href="last-signal-case-study.html">Case study</a></div>
+                        <ul>
+                            <li>Built a browser-based 3D survival shooter, then expanded it to real-time multiplayer for up to 8 players: clients send state 15×/sec and the server broadcasts one batched snapshot 20×/sec, with interpolation for smooth movement.</li>
+                            <li>Hardened the Node.js server against untrusted input (field whitelisting, name sanitization, path-traversal checks) and shipped it with Docker on Render.</li>
+                        </ul>
+                    </div>
+                    <div class="r-item">
+                        <div class="r-row"><h3>Credit Card Fraud Detection · Python, PyTorch</h3><a href="https://github.com/ReneeGuldi/Credit-Card-Fraud-Detection" target="_blank" rel="noopener">GitHub</a></div>
+                        <ul>
+                            <li>Counted the classes first: only 492 of 284,807 transactions were fraud, so a model that never flagged anything would still look 99.83% accurate. That changed my goal from "high accuracy" to "how much fraud is caught, and how many honest customers get flagged."</li>
+                            <li>Trained a logistic-regression baseline, then a PyTorch neural network that caught 74 of 98 fraud cases with only 10 false alarms (88.1% precision, 75.5% recall).</li>
+                        </ul>
+                    </div>
+                    <div class="r-item">
+                        <div class="r-row"><h3>BBC News Article Classifier · Python, PyTorch, Gensim</h3><a href="https://github.com/ReneeGuldi/BBC-Article-Classifier" target="_blank" rel="noopener">GitHub</a></div>
+                        <ul>
+                            <li>Raised accuracy from 85.17% to 95.51% (2nd in class) by tuning one setting per run (Doc2Vec vector size, then training epochs) so every change was measurable.</li>
+                            <li>When switching optimizers dropped accuracy to 46%, isolated testing pinpointed the cause immediately. Built TF-IDF from scratch to test bigger vs. smarter vectors: 29,088 dimensions still lost to Doc2Vec's 250 (92.81% vs 95.51%).</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Leadership</h2>
+                    <div class="r-item">
+                        <div class="r-row"><h3>Project Manager · Engineering Design Projects, University of Indianapolis</h3><span>Spring 2026</span></div>
+                        <ul>
+                            <li>Took over as project manager mid-semester; ran a Lego sorting machine with Scrum and a zipline speedometer with Waterfall, delivering both.</li>
+                            <li>Programmed and integrated sensors for an Arduino robot: RC navigation, path following, IR tape-tracking and ultrasonic wall detection.</li>
+                        </ul>
+                    </div>
+                    <div class="r-item">
+                        <div class="r-row"><h3>Team Lead · Game Development Projects, Ivy Tech</h3><span>2023 – 2025</span></div>
+                        <ul>
+                            <li>Led 3 Unity games on 3-person teams, owning game logic and scene design; mapped branching story paths for a Python narrative game before coding it.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Technical Skills</h2>
+                    <dl class="r-skills">
+                        <dt>Languages</dt><dd>Python · Java · C# · C++ · Kotlin · SQL (MySQL, PostgreSQL) · JavaScript · HTML/CSS</dd>
+                        <dt>Frameworks &amp; Libraries</dt><dd>PyTorch · Gensim (Doc2Vec) · NumPy · pandas · Django · .NET · Unity · Three.js · Node.js · Socket.IO</dd>
+                        <dt>Tools</dt><dd>Git &amp; GitHub · Docker · Jupyter · VS Code · Android Studio · Postman · Arduino · Excel/Google Sheets</dd>
+                        <dt>Practices</dt><dd>Agile/Scrum · Object-Oriented Design · Unit &amp; Integration Testing · CI/CD · Quality Assurance</dd>
+                    </dl>
+                </section>
+            </article>
+        </main>
+        <footer class="site-footer">
+            <div class="wrap footer-row">
+                <p>© <span id="year">2026</span> Renee Guldi</p>
+                <p class="footer-links">
+                    <a href="https://www.linkedin.com/in/rguldi" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://github.com/ReneeGuldi" target="_blank" rel="noopener">GitHub</a>
+                    <a href="index.html#contact">Contact</a>
+                </p>
+            </div>
+        </footer>
+
+        <button id="backToTop" class="back-to-top" aria-label="Back to Top">&uarr;</button>
+        <script src="js/config.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/chatbot.js"></script>
+    </body>
+</html>

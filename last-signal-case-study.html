@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: The Last Signal - Renee Guldi</title>
+    <meta name="description" content="How Renee Guldi built The Last Signal, a browser-based 3D survival shooter, and grew it into a real-time multiplayer game with Three.js, cannon-es, Node.js and Socket.IO.">
+    <meta property="og:title" content="Case Study: The Last Signal">
+    <meta property="og:description" content="From a single-player Three.js prototype to an 8-player real-time multiplayer game in four weeks.">
+    <meta property="og:image" content="images/last-signal-mltiplr.png">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <div class="wrap nav-row">
+            <a class="brand" href="index.html">Renee Guldi</a>
+            <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="navMenu">
+                <span></span><span></span>
+            </button>
+            <nav id="navMenu" class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="project.html" class="active">Projects</a>
+                <a href="resume.html">Resume</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+<main id="main" class="case-study wrap">
+    <a href="project.html" class="back-link">&larr; Back to Projects</a>
+
+    <header class="cs-hero">
+        <p class="eyebrow">Case Study · Game Development · Networking</p>
+        <h1>The Last Signal</h1>
+        <p class="lede">From a single-player browser prototype to an 8-player real-time multiplayer game in about four weeks.</p>
+        <div class="btn-row">
+            <a class="btn" href="https://last-signal-multiplayer.onrender.com/" target="_blank" rel="noopener">Play multiplayer</a>
+            <a class="btn btn-ghost" href="https://reneeguldi.github.io/Last_Signal/" target="_blank" rel="noopener">Play single-player</a>
+            <a class="btn btn-ghost" href="https://github.com/ReneeGuldi/Last_Signal_Multiplayer" target="_blank" rel="noopener">Source code</a>
+        </div>
+    </header>
+
+    <figure class="cs-figure">
+        <img src="images/last-signal-mltiplr.png" alt="First-person view in The Last Signal: a pistol aimed down a dusty road toward a ruined town">
+        <figcaption>The multiplayer edition: a ruined town, a radio tower to repair, and husks everywhere.</figcaption>
+    </figure>
+
+    <!-- At-a-glance facts -->
+    <dl class="cs-facts">
+        <div><dt>Role</dt><dd>Solo developer: design, code, 3D models, deployment</dd></div>
+        <div><dt>Timeline</dt><dd>Oct 16 – Nov 12, 2026 (CSCI-310)</dd></div>
+        <div><dt>Stack</dt><dd>Three.js, cannon-es, Node.js, Socket.IO, Docker, Render</dd></div>
+        <div><dt>Scale</dt><dd>~4,700 lines of JavaScript · 16 custom 3D models · up to 8 players</dd></div>
+    </dl>
+
+    <section class="cs-section">
+        <h2>The goal</h2>
+        <p>
+            CSCI-310 asked us to build a 3D application in the browser, then connect a front-end to a back-end.
+            I wanted one project that could do both: a game fun enough that people would actually play it, then the same
+            game rebuilt so friends could play it <em>together</em> in real time.
+        </p>
+        <p>
+            The premise: a fungal outbreak called the Bloom has turned people into husks. You scavenge three radio parts,
+            repair a dead radio tower, and hold out until the evac chopper arrives.
+        </p>
+    </section>
+
+    <section class="cs-section">
+        <h2>Phase 1: The single-player game</h2>
+        <p>I went from an empty repo to a first playable build in a day, then spent the next few days on what makes a shooter feel good.</p>
+        <ul>
+            <li><strong>Physics that reacts to you.</strong> I used cannon-es for rigid-body physics: crates tumble when shot, explosive barrels set each other off, and a wrecked school bus can be blown loose.</li>
+            <li><strong>Feedback on every shot.</strong> Recoil, a muzzle-flash light, bullet tracers, and different impact effects (dust on walls, green Bloom splatter on husks) make hits readable.</li>
+            <li><strong>My own art.</strong> I modeled the husks, radio parts, weapons, pickups and props in Blockbench and loaded them as glTF.</li>
+            <li><strong>A real ending.</strong> Delivering all three parts starts a 60-second finale: husk waves, a flashing tower beacon, and a win screen with a score.</li>
+        </ul>
+    </section>
+
+    <section class="cs-section">
+        <h2>Phase 2: Making it multiplayer</h2>
+        <p>Adding multiplayer changed the project from "a game" into "a client and a server that have to agree with each other."</p>
+
+        <h3>Architecture</h3>
+        <div class="cs-diagram" role="img" aria-label="Diagram: each browser sends its position to the Node.js server 15 times a second; the server broadcasts one combined snapshot to all browsers 20 times a second.">
+            <div class="cs-node">Browser<br><small>Three.js game</small></div>
+            <div class="cs-arrow"><span>position · 15×/sec →</span><span>← snapshot · 20×/sec</span></div>
+            <div class="cs-node cs-node-accent">Node.js server<br><small>Socket.IO relay</small></div>
+            <div class="cs-arrow"><span>← position · 15×/sec</span><span>snapshot · 20×/sec →</span></div>
+            <div class="cs-node">Other browsers<br><small>up to 8 players</small></div>
+        </div>
+        <ul>
+            <li><strong>Batched snapshots instead of message forwarding.</strong> Each client sends its position 15 times a second. Instead of relaying every message to everyone, the server sends one combined snapshot 20 times a second, which keeps traffic predictable as players join.</li>
+            <li><strong>Smooth movement between updates.</strong> Remote players are interpolated toward their latest position, and they turn the shortest way around, so nobody teleports or spins 350° to face left.</li>
+            <li><strong>One server, two jobs.</strong> The same Node.js process serves the game files and runs the Socket.IO relay on a single port, which made it simple to containerize with Docker and deploy on Render.</li>
+            <li><strong>Graceful fallback.</strong> If no server is reachable (like on the GitHub Pages copy), the game quietly stays single-player instead of breaking.</li>
+        </ul>
+
+        <h3>Treating the client as untrusted</h3>
+        <p>Anything a browser sends can be edited by the person using it, so the server double-checks everything it receives:</p>
+        <ul>
+            <li>It only copies the position fields it expects, and only if they're real numbers.</li>
+            <li>It cleans player names (allowed characters only, 16-character limit) before showing them to anyone else.</li>
+            <li>It blocks path tricks like <code>../../</code> in the static file server, so nobody can read files outside the game folder.</li>
+            <li>It caps the lobby at 8 players and gives each player a unique color slot.</li>
+        </ul>
+
+        <h3>A much bigger world</h3>
+        <p>
+            I rebuilt the map into a town with roads, a tower plaza and an evac route, plus a police station, apartment block, pharmacy and hardware store.
+            The police station and apartments have second floors with working stairs. I added three weapons (pistol, shotgun, machete),
+            three husk types, and Bloom nests that keep spawning husks until you destroy them.
+        </p>
+    </section>
+
+    <section class="cs-section">
+        <h2>Problems I had to solve</h2>
+        <div class="cs-problems">
+            <article>
+                <h3>Infinite jumping</h3>
+                <p><strong>Problem:</strong> Players could hold space and climb into the sky.</p>
+                <p><strong>Fix:</strong> I added a ground check. A jump only "reloads" when the physics engine reports a collision whose surface normal points mostly upward, so it counts landing on the ground or a crate but not brushing against a wall.</p>
+            </article>
+            <article>
+                <h3>Husks walking backwards</h3>
+                <p><strong>Problem:</strong> Enemies moved toward the player correctly but faced the wrong way.</p>
+                <p><strong>Fix:</strong> The Blockbench models were built facing the opposite direction from the one Three.js's <code>lookAt()</code> treats as forward. I turned the model 180° inside its parent object, with a per-model override, so the movement code didn't have to change.</p>
+            </article>
+            <article>
+                <h3>Frame rate in a bigger town</h3>
+                <p><strong>Problem:</strong> Buildings made of hundreds of small boxes meant hundreds of draw calls.</p>
+                <p><strong>Fix:</strong> I grouped each building's parts by material and merged them into single meshes, cutting the work the GPU does every frame.</p>
+            </article>
+            <article>
+                <h3>Starting the networking over</h3>
+                <p><strong>Problem:</strong> My first attempt at the client networking code wasn't working the way I wanted.</p>
+                <p><strong>Fix:</strong> Instead of patching it, I started the file over and organized it around the four jobs it has: connecting, sending my state, receiving snapshots, and drawing other players. <!-- RENEE: add a sentence on what specifically went wrong the first time --></p>
+            </article>
+        </div>
+    </section>
+
+    <section class="cs-section">
+        <h2>How I worked</h2>
+        <p>
+            I committed in small, working steps and wrote detailed commit messages, so I could always get back to a playable build.
+            I used AI assistance to rough out some of the box-built building layouts, then reviewed and adjusted them by hand.
+            Knowing when to use a tool and checking what it gives you is part of the job.
+        </p>
+    </section>
+
+    <section class="cs-section">
+        <h2>What I'd do next</h2>
+        <ul>
+            <li><strong>Server-authoritative combat.</strong> Shots are cosmetic for other players right now. Next I'd have the server decide hits and husk health so everyone sees the same fight and cheating gets harder.</li>
+            <li><strong>Client-side prediction</strong> to hide network delay on slower connections.</li>
+            <li><strong>A persistent leaderboard</strong> backed by a small database.</li>
+        </ul>
+    </section>
+
+    <section class="cs-section cs-takeaways">
+        <h2>What I learned</h2>
+        <p>
+            Real-time systems are about trade-offs between update rate, bandwidth and smoothness. Any input from a client has to be validated.
+            And shipping something people can actually click and play teaches you more than a feature list does.
+        </p>
+        <div class="btn-row">
+            <a class="btn" href="https://last-signal-multiplayer.onrender.com/" target="_blank" rel="noopener">Play it</a>
+            <a class="btn btn-ghost" href="index.html#contact">Talk to me about it</a>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="wrap footer-row">
+        <p>© <span id="year">2026</span> Renee Guldi</p>
+        <p class="footer-links">
+            <a href="https://www.linkedin.com/in/rguldi" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/ReneeGuldi" target="_blank" rel="noopener">GitHub</a>
+            <a href="index.html#contact">Contact</a>
+        </p>
+    </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" aria-label="Back to Top">&uarr;</button>
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+// Cloudflare Workers config: serves this folder as a static website.
+// No server code runs; every request is answered with a file from this repo.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "renee-guldi-portfolio",
+  "compatibility_date": "2026-11-19",
+  "assets": {
+    "directory": "./",
+    "not_found_handling": "404-page"
+  }
+}
