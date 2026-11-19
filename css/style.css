@@ -1092,3 +1092,8 @@ body.has-chat .back-to-top { bottom: 84px; right: 24px; }
   border-radius: var(--radius);
 }
 .post-cta p { margin: 0; }
+
+
+.edu-courses, .r-courses { margin-top: 6px !important; font-size: 0.95rem; }
+
+

@@ -68,7 +68,7 @@ window.PROJECTS = {
   },
 
   ml1: {
-    eyebrow: "Machine Learning · Python, PyTorch",
+    eyebrow: "Artificial Intelligence & Intelligent Systems · Python, PyTorch",
     title: "Credit Card Fraud Detection",
     summary:
       "A neural network that flags fraudulent transactions in a dataset where only 492 of 284,807 transactions are fraud. " +
@@ -86,7 +86,7 @@ window.PROJECTS = {
   },
 
   ml2: {
-    eyebrow: "Machine Learning · NLP",
+    eyebrow: "Artificial Intelligence & Intelligent Systems · NLP",
     title: "BBC News Article Classifier",
     summary:
       "Classifies 2,225 BBC articles into five topics (business, entertainment, politics, sport, tech) using Doc2Vec embeddings " +
