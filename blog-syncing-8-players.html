@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How I synced 8 players in a browser game with Socket.IO - Renee Guldi</title>
+    <meta name="description" content="How The Last Signal keeps up to 8 players in sync: fixed send rates, batched server snapshots, client-side interpolation, and treating every client message as untrusted.">
+    <meta property="og:title" content="How I synced 8 players in a browser game with Socket.IO">
+    <meta property="og:description" content="Send rates, batched snapshots, interpolation, and never trusting the client, with the real code.">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://renee-guldi-portfolio.r-guldi.workers.dev/images/last-signal-mltiplr.png">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <div class="wrap nav-row">
+            <a class="brand" href="index.html">Renee Guldi</a>
+            <button id="navToggle" class="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="navMenu">
+                <span></span><span></span>
+            </button>
+            <nav id="navMenu" class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="project.html">Projects</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="resume.html">Resume</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main" class="post wrap">
+        <a href="blog.html" class="back-link">&larr; All posts</a>
+
+        <header class="post-head">
+            <p class="post-meta"><time datetime="2026-11-19">November 19, 2026</time> · 7 min read</p>
+            <h1>How I synced 8 players in a browser game with Socket.IO</h1>
+            <p class="lede">
+                The Last Signal started as a single-player Three.js shooter. Making it multiplayer meant every browser had to
+                agree on where everyone was, many times a second, without flooding the network or letting anyone cheat.
+                Here's how I approached it, with the actual code.
+            </p>
+        </header>
+
+        <figure class="cs-figure">
+            <img src="images/last-signal-mltiplr.png" alt="First-person view in The Last Signal multiplayer: a pistol aimed down a dusty road toward a ruined town">
+        </figure>
+
+        <section class="post-body">
+            <h2>The setup</h2>
+            <p>
+                Each player runs the full game in their own browser: the physics, the husks, the shooting. What they need from
+                everyone else is much smaller: <strong>where each other player is and which way they're facing.</strong>
+                So the server's main job is to collect those positions and pass them around.
+            </p>
+            <p>The server is a small Node.js app using Socket.IO, which lets each side send named events:</p>
+            <pre><code>// one side
+socket.emit('state', data);
+
+// the other side
+socket.on('state', (data) =&gt; { ... });</code></pre>
+            <p>That leaves three decisions: how often to send, how to make movement look smooth, and how much to trust what the browser sends.</p>
+
+            <h2>1. Send at a fixed rate, not every frame</h2>
+            <p>
+                A game loop runs about 60 times a second. Sending your position on every frame means 60 messages a second per player,
+                and with 8 players that adds up fast. It's also wasteful: nobody can tell the difference between 60 updates
+                and 15 when they're watching someone else walk.
+            </p>
+            <p>So the client keeps a small countdown timer and only sends when it runs out:</p>
+            <pre><code>const SEND_RATE = 15; // updates per second
+
+export function sendState(dt, position, rotY) {
+    if (!isOpen()) return;
+    sendTimer -= dt;
+    if (sendTimer &gt; 0) return;      // not time yet
+    sendTimer = 1 / SEND_RATE;
+    socket.emit('state', {
+        x: +position.x.toFixed(2),
+        y: +position.y.toFixed(2),
+        z: +position.z.toFixed(2),
+        rotY: +rotY.toFixed(3),
+    });
+}</code></pre>
+            <p>
+                The <code>toFixed</code> calls are a small detail I like: positions to the nearest centimeter are plenty, and
+                rounding makes every message shorter.
+            </p>
+
+            <h2>2. Batch on the server: one snapshot, 20 times a second</h2>
+            <p>
+                The obvious first idea is a relay: whenever player A sends a position, forward it to everyone else.
+                The problem is that the number of messages grows with every player who joins. With 8 players each sending
+                15 updates a second, the server would be forwarding hundreds of separate messages a second.
+            </p>
+            <p>
+                Instead, the server just <em>stores</em> each player's latest position when it arrives. Then, on its own fixed
+                "tick," it sends everyone a single combined list:
+            </p>
+            <pre><code>const TICK_RATE = 20;
+setInterval(() =&gt; {
+    const list = introduced();          // players who have joined the game
+    if (list.length &lt; 2) return;        // nobody to sync with yet
+    io.emit('snapshot', list.map(publicInfo));
+}, 1000 / TICK_RATE);</code></pre>
+            <p>
+                Now each browser receives exactly 20 messages a second no matter how many people are playing. The
+                <code>list.length &lt; 2</code> check also means a server with one lonely player sends nothing at all.
+            </p>
+
+            <h2>3. Interpolate so nobody teleports</h2>
+            <p>
+                20 snapshots a second is far fewer than 60 frames a second. If the game just snapped each remote player to their
+                newest position, they would visibly stutter. So when a snapshot arrives, the client doesn't move anyone. It only
+                updates where they're <em>heading</em>:
+            </p>
+            <pre><code>socket.on('snapshot', (list) =&gt; {
+    for (const p of list) {
+        if (p.id === myId) continue;     // skip myself
+        const r = remotes.get(p.id);
+        r.target.set(p.x, p.y, p.z);
+        r.targetRotY = p.rotY;
+    }
+});</code></pre>
+            <p>Then, every frame, each remote player slides part of the way toward that target:</p>
+            <pre><code>const t = Math.min(1, dt * 12);
+r.root.position.lerp(r.target, t);
+
+// turn the shortest way around
+let diff = r.targetRotY - r.root.rotation.y;
+diff = Math.atan2(Math.sin(diff), Math.cos(diff));
+r.root.rotation.y += diff * t;</code></pre>
+            <p>
+                The rotation line fixed a funny bug. Angles wrap around, so turning from 170° to −170° is really a 20° turn,
+                but subtracting the numbers says 340°. Without the <code>atan2</code> trick, players would spin almost all the
+                way around just to turn slightly left. Wrapping the difference into the range −180° to 180° always picks the short way.
+            </p>
+
+            <h2>4. Never trust the client</h2>
+            <p>
+                Anyone can open their browser's developer tools and send whatever they want to my server. So the server treats
+                every message as untrusted. For position updates, it copies only the four fields it expects, and only if they're
+                real numbers:
+            </p>
+            <pre><code>socket.on('state', (msg) =&gt; {
+    if (!msg) return;
+    const s = player.state;
+    for (const key of ['x', 'y', 'z', 'rotY']) {
+        if (Number.isFinite(msg[key])) s[key] = msg[key];
+    }
+});</code></pre>
+            <p>
+                Extra fields are ignored, and junk like <code>"hello"</code> or <code>NaN</code> never reaches other players.
+                The same idea applies elsewhere: player names are stripped down to safe characters and 16 characters max before
+                anyone else sees them, the lobby caps at 8 players, and the file server blocks <code>../</code> tricks so nobody
+                can read files outside the game folder.
+            </p>
+
+            <h2>What I'd do next</h2>
+            <p>
+                Right now, gunfire from other players is cosmetic: you see their tracers, but each browser decides its own hits.
+                That's fine for a cooperative game, but the next step would be <strong>server-authoritative combat</strong>,
+                where the server decides hits and enemy health so everyone sees the same fight. After that, client-side prediction
+                would hide network delay on slow connections.
+            </p>
+
+            <h2>Takeaways</h2>
+            <ul>
+                <li><strong>Pick rates on purpose.</strong> 15 updates up and 20 down was plenty for smooth play, and far cheaper than "every frame."</li>
+                <li><strong>Batch on the server.</strong> One snapshot per tick keeps traffic predictable as players join.</li>
+                <li><strong>Smooth on the client.</strong> Interpolation, with angle wrapping, does more for how it <em>feels</em> than a higher send rate would.</li>
+                <li><strong>Validate everything.</strong> If it came from a browser, check it before you use it.</li>
+            </ul>
+
+            <div class="post-cta">
+                <p>Want to see it in action, or read the full project story?</p>
+                <div class="btn-row">
+                    <a class="btn" href="https://last-signal-multiplayer.onrender.com/" target="_blank" rel="noopener">Play multiplayer</a>
+                    <a class="btn btn-ghost" href="last-signal-case-study.html">Read the case study</a>
+                    <a class="btn btn-ghost" href="https://github.com/ReneeGuldi/Last_Signal_Multiplayer" target="_blank" rel="noopener">Source code</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap footer-row">
+            <p>© <span id="year">2026</span> Renee Guldi</p>
+            <p class="footer-links">
+                <a href="https://www.linkedin.com/in/rguldi" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/ReneeGuldi" target="_blank" rel="noopener">GitHub</a>
+                <a href="index.html#contact">Contact</a>
+            </p>
+        </div>
+    </footer>
+
+    <button id="backToTop" class="back-to-top" aria-label="Back to Top">&uarr;</button>
+    <script src="js/config.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+</html>
