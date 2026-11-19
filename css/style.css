@@ -1093,7 +1093,7 @@ body.has-chat .back-to-top { bottom: 84px; right: 24px; }
 }
 .post-cta p { margin: 0; }
 
-
 .edu-courses, .r-courses { margin-top: 6px !important; font-size: 0.95rem; }
 
-
+/* Keep footer links clear of the floating chat button */
+body.has-chat .site-footer { padding-bottom: 96px; }
