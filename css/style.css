@@ -1097,3 +1097,6 @@ body.has-chat .back-to-top { bottom: 84px; right: 24px; }
 
 /* Keep footer links clear of the floating chat button */
 body.has-chat .site-footer { padding-bottom: 96px; }
+
+
+.post-update { margin: 0 0 8px; border-left: 4px solid var(--accent-2); }

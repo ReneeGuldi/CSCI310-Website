@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Study: The Last Signal - Renee Guldi</title>
-    <meta name="description" content="How Renee Guldi built The Last Signal, a browser-based 3D survival shooter, and grew it into a real-time multiplayer game with Three.js, cannon-es, Node.js and Socket.IO.">
+    <meta name="description" content="How Renee Guldi built The Last Signal, a browser-based 3D survival shooter, as a CSCI-310 project and kept building it into a co-op multiplayer game with lobbies, using Three.js, cannon-es, Node.js and Socket.IO.">
     <meta property="og:title" content="Case Study: The Last Signal">
-    <meta property="og:description" content="From a single-player Three.js prototype to an 8-player real-time multiplayer game in four weeks.">
-    <meta property="og:image" content="images/last-signal-mltiplr.png">
+    <meta property="og:description" content="From a class project to a co-op browser game: join-code lobbies, a host-run shared world, and 8 players per lobby.">
+    <meta property="og:image" content="https://renee-guldi-portfolio.r-guldi.workers.dev/images/last-signal-mltiplr.png">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,37 +38,71 @@
     <header class="cs-hero">
         <p class="eyebrow">Case Study · Game Development · Networking</p>
         <h1>The Last Signal</h1>
-        <p class="lede">From a single-player browser prototype to an 8-player real-time multiplayer game in about four weeks.</p>
+        <p class="lede">
+            A browser survival shooter that started as two CSCI-310 assignments and became my ongoing solo project:
+            a co-op game where friends join a lobby with a code and fight through the same world together.
+        </p>
         <div class="btn-row">
             <a class="btn" href="https://last-signal-multiplayer.onrender.com/" target="_blank" rel="noopener">Play multiplayer</a>
-            <a class="btn btn-ghost" href="https://reneeguldi.github.io/Last_Signal/" target="_blank" rel="noopener">Play single-player</a>
+            <a class="btn btn-ghost" href="https://reneeguldi.github.io/Last_Signal/" target="_blank" rel="noopener">Play the original</a>
             <a class="btn btn-ghost" href="https://github.com/ReneeGuldi/Last_Signal_Multiplayer" target="_blank" rel="noopener">Source code</a>
         </div>
     </header>
 
     <figure class="cs-figure">
         <img src="images/last-signal-mltiplr.png" alt="First-person view in The Last Signal: a pistol aimed down a dusty road toward a ruined town">
-        <figcaption>The multiplayer edition: a ruined town, a radio tower to repair, and husks everywhere.</figcaption>
+        <figcaption>A ruined town, a radio tower to repair, and husks everywhere.</figcaption>
     </figure>
 
-    <!-- At-a-glance facts -->
+    <!-- At-a-glance facts: update the Scale numbers as the project grows -->
     <dl class="cs-facts">
         <div><dt>Role</dt><dd>Solo developer: design, code, 3D models, deployment</dd></div>
-        <div><dt>Timeline</dt><dd>Oct 16 – Nov 12, 2026 (CSCI-310)</dd></div>
-        <div><dt>Stack</dt><dd>Three.js, cannon-es, Node.js, Socket.IO, Docker, Render</dd></div>
-        <div><dt>Scale</dt><dd>~4,700 lines of JavaScript · 16 custom 3D models · up to 8 players</dd></div>
+        <div><dt>Timeline</dt><dd>Oct 16, 2026 – ongoing · class project, then personal project</dd></div>
+        <div><dt>Stack</dt><dd>Three.js, cannon-es, Node.js, Socket.IO, Docker, Render, Blockbench</dd></div>
+        <div><dt>Scale</dt><dd>~7,200 lines across 37 JavaScript modules · 33 custom 3D models · up to 8 players per lobby</dd></div>
     </dl>
+
+    <!-- How the project grew -->
+    <section class="cs-section">
+        <h2>How it grew</h2>
+        <div class="cs-problems">
+            <article>
+                <p class="timeline-when">Class project</p>
+                <h3>1. Single-player game</h3>
+                <p>A first-person shooter with physics, custom models and a full objective loop, built for CSCI-310's 3D assignment.</p>
+            </article>
+            <article>
+                <p class="timeline-when">Class project</p>
+                <h3>2. Multiplayer, side by side</h3>
+                <p>A Node.js + Socket.IO server so players could see each other move, built for the front-end + back-end assignment.</p>
+            </article>
+            <article>
+                <p class="timeline-when">On my own</p>
+                <h3>3. Reorganized and lobbies</h3>
+                <p>Split a 5,000-line file into modules, and let one server host many separate games with join codes.</p>
+            </article>
+            <article>
+                <p class="timeline-when">On my own</p>
+                <h3>4. True co-op</h3>
+                <p>One shared world per lobby: the same husks, the same objectives, and one win for the whole team.</p>
+            </article>
+        </div>
+    </section>
 
     <section class="cs-section">
         <h2>The goal</h2>
         <p>
             CSCI-310 asked us to build a 3D application in the browser, then connect a front-end to a back-end.
             I wanted one project that could do both: a game fun enough that people would actually play it, then the same
-            game rebuilt so friends could play it <em>together</em> in real time.
+            game rebuilt so friends could play it <em>together</em>.
         </p>
         <p>
             The premise: a fungal outbreak called the Bloom has turned people into husks. You scavenge three radio parts,
-            repair a dead radio tower, and hold out until the evac chopper arrives.
+            repair a dead radio tower, fight down the evac road, and hold the landing zone until the chopper touches down.
+        </p>
+        <p>
+            Both class versions have been graded, but I'm still building it. Everything from Phase 3 on was done on my own time,
+            because I want it to be a game people genuinely enjoy playing with their friends.
         </p>
     </section>
 
@@ -79,43 +113,122 @@
             <li><strong>Physics that reacts to you.</strong> I used cannon-es for rigid-body physics: crates tumble when shot, explosive barrels set each other off, and a wrecked school bus can be blown loose.</li>
             <li><strong>Feedback on every shot.</strong> Recoil, a muzzle-flash light, bullet tracers, and different impact effects (dust on walls, green Bloom splatter on husks) make hits readable.</li>
             <li><strong>My own art.</strong> I modeled the husks, radio parts, weapons, pickups and props in Blockbench and loaded them as glTF.</li>
-            <li><strong>A real ending.</strong> Delivering all three parts starts a 60-second finale: husk waves, a flashing tower beacon, and a win screen with a score.</li>
+            <li><strong>A real ending.</strong> Delivering all three parts lights the tower beacon and calls in the chopper, and a final timed hold ends with a win screen and a score.</li>
         </ul>
     </section>
 
     <section class="cs-section">
-        <h2>Phase 2: Making it multiplayer</h2>
-        <p>Adding multiplayer changed the project from "a game" into "a client and a server that have to agree with each other."</p>
+        <h2>Phase 2: Multiplayer, side by side</h2>
+        <p>The second assignment was to connect the game to a server. My first version focused on one thing: letting players <em>see</em> each other.</p>
 
         <h3>Architecture</h3>
-        <div class="cs-diagram" role="img" aria-label="Diagram: each browser sends its position to the Node.js server 15 times a second; the server broadcasts one combined snapshot to all browsers 20 times a second.">
+        <div class="cs-diagram" role="img" aria-label="Diagram: each browser sends its position to the Node.js server 15 times a second; the server sends one combined snapshot to everyone in the lobby 20 times a second.">
             <div class="cs-node">Browser<br><small>Three.js game</small></div>
             <div class="cs-arrow"><span>position · 15×/sec →</span><span>← snapshot · 20×/sec</span></div>
-            <div class="cs-node cs-node-accent">Node.js server<br><small>Socket.IO relay</small></div>
+            <div class="cs-node cs-node-accent">Node.js server<br><small>Socket.IO</small></div>
             <div class="cs-arrow"><span>← position · 15×/sec</span><span>snapshot · 20×/sec →</span></div>
-            <div class="cs-node">Other browsers<br><small>up to 8 players</small></div>
+            <div class="cs-node">Other players<br><small>up to 8</small></div>
         </div>
         <ul>
             <li><strong>Batched snapshots instead of message forwarding.</strong> Each client sends its position 15 times a second. Instead of relaying every message to everyone, the server sends one combined snapshot 20 times a second, which keeps traffic predictable as players join.</li>
-            <li><strong>Smooth movement between updates.</strong> Remote players are interpolated toward their latest position, and they turn the shortest way around, so nobody teleports or spins 350° to face left.</li>
-            <li><strong>One server, two jobs.</strong> The same Node.js process serves the game files and runs the Socket.IO relay on a single port, which made it simple to containerize with Docker and deploy on Render.</li>
-            <li><strong>Graceful fallback.</strong> If no server is reachable (like on the GitHub Pages copy), the game quietly stays single-player instead of breaking.</li>
+            <li><strong>Smooth movement between updates.</strong> Remote players glide toward their latest position and turn the shortest way around, so nobody teleports or spins 350° to face left.</li>
+            <li><strong>One server, two jobs.</strong> The same Node.js process serves the game files and runs Socket.IO on a single port, which made it simple to containerize with Docker and deploy on Render.</li>
+            <li><strong>Graceful fallback.</strong> If no server is reachable, the game quietly runs single-player instead of breaking.</li>
         </ul>
 
-        <h3>Treating the client as untrusted</h3>
-        <p>Anything a browser sends can be edited by the person using it, so the server double-checks everything it receives:</p>
-        <ul>
-            <li>It only copies the position fields it expects, and only if they're real numbers.</li>
-            <li>It cleans player names (allowed characters only, 16-character limit) before showing them to anyone else.</li>
-            <li>It blocks path tricks like <code>../../</code> in the static file server, so nobody can read files outside the game folder.</li>
-            <li>It caps the lobby at 8 players and gives each player a unique color slot.</li>
-        </ul>
-
-        <h3>A much bigger world</h3>
+        <h3>What it didn't do yet</h3>
         <p>
-            I rebuilt the map into a town with roads, a tower plaza and an evac route, plus a police station, apartment block, pharmacy and hardware store.
-            The police station and apartments have second floors with working stairs. I added three weapons (pistol, shotgun, machete),
-            three husk types, and Bloom nests that keep spawning husks until you destroy them.
+            You could see your friends walk around, name tags and all, but every player was still running <strong>their own copy of the world</strong>.
+            Each person had their own husks, their own radio parts and their own tower. You were playing next to each other, not with each other.
+            Fixing that became Phase 4.
+        </p>
+    </section>
+
+    <section class="cs-section">
+        <h2>Phase 3: Reorganizing and lobbies</h2>
+        <p><em>After the course: built on my own time.</em></p>
+
+        <h3>Splitting up a 5,000-line file</h3>
+        <p>
+            By this point <code>main.js</code> was closing in on 5,000 lines. Everything worked, but finding a specific function
+            meant a lot of scrolling and searching, and it was hard to see how the pieces fit together. I split it into modules grouped by what they do:
+        </p>
+        <ul>
+            <li><strong><code>core/</code></strong>: engine setup, shared game state, and model loading.</li>
+            <li><strong><code>game/</code></strong>: one file per system, like husks, weapons, pickups, nests, the tower, effects and co-op.</li>
+            <li><strong><code>world/</code></strong>: the map, with each district and building type in its own file.</li>
+            <li><strong><code>ui/</code></strong>: the HUD, start menu, lobby panel and input.</li>
+        </ul>
+        <p>
+            Now each file has one job. Changing how husks behave means opening <code>husks.js</code>, not searching a 5,000-line file.
+            That paid off right away: the co-op work in Phase 4 touched almost every system, and having them separated made it manageable.
+            I also removed the server's installed packages (<code>node_modules</code>) from the repository so it only holds code I wrote.
+        </p>
+
+        <h3>Lobbies: planning for more players</h3>
+        <p>
+            The first multiplayer version was one shared server capped at 8 players. If the game ever got more traffic,
+            everyone after the eighth player would be turned away. I didn't want to hit that wall later, so I planned for it early:
+        </p>
+        <ul>
+            <li><strong>Join codes.</strong> Hosting creates a lobby with a 4-letter code like <code>K7QM</code>. Friends type it on the start menu to join. Codes skip look-alike characters (0/O, 1/I) so they're easy to read out loud.</li>
+            <li><strong>Separate games.</strong> Each lobby has its own players, colors and world, and uses Socket.IO rooms so messages only reach players in that lobby. The server can run up to 100 lobbies at once.</li>
+            <li><strong>No stranded games.</strong> If the host leaves, whoever has been in the lobby longest becomes the new host. When the last player leaves, the lobby is deleted.</li>
+        </ul>
+    </section>
+
+    <section class="cs-section">
+        <h2>Phase 4: Making it truly co-op</h2>
+        <p><em>After the course: built on my own time.</em></p>
+        <p>
+            Sharing one world raises a hard question: if two players shoot the same husk at the same moment, whose game is right?
+            My answer was to make one game the source of truth: <strong>the host's.</strong>
+        </p>
+
+        <div class="cs-diagram" role="img" aria-label="Diagram: a teammate tells the host 'I hit husk 12'; the host's game applies the damage and runs the husks; the host sends husk positions to everyone 10 times a second, plus events like loot drops and the win.">
+            <div class="cs-node">Teammate<br><small>husks are puppets</small></div>
+            <div class="cs-arrow"><span>"I hit husk 12" →</span><span>← husks · 10×/sec</span></div>
+            <div class="cs-node cs-node-accent">Host's game<br><small>runs the real world</small></div>
+            <div class="cs-arrow"><span>← "I shoved husk 4"</span><span>loot, score, win →</span></div>
+            <div class="cs-node">Other teammates<br><small>same world</small></div>
+        </div>
+
+        <ul>
+            <li><strong>The host runs the world.</strong> On the host's game, husks think, chase and attack, nests spawn, ambushes fire, and the evac countdown decides when everyone wins. Husks chase whichever living player is closest, counting someone on another floor as farther away.</li>
+            <li><strong>Everyone else's husks are puppets.</strong> They copy the host's husks 10 times a second: position, facing, what they're doing, and whether they're dead.</li>
+            <li><strong>Teammates send requests, not results.</strong> When you shoot a husk, your game doesn't kill it. It tells the host "I hit husk 12 for this much damage." The host applies it, then sends back what happened: points to whoever got the kill, damage to whoever got bitten, loot to everyone.</li>
+            <li><strong>Shared objectives.</strong> Radio parts, the tower, the barricade, nests, pickups, drawers and exploding barrels are all shared, so the team works toward one finish and one win screen.</li>
+            <li><strong>Late joiners catch up.</strong> When someone joins mid-run, the host sends a catch-up message with everything that already happened: parts found, nests destroyed, barrels blown, loot on the ground, and the tower's progress.</li>
+            <li><strong>Host handoff.</strong> If the host leaves, the next host's puppet husks start thinking for themselves, and the run keeps going.</li>
+            <li><strong>Downed, not out.</strong> In a lobby, dying takes you off the field until you respawn, and husks ignore downed players.</li>
+            <li><strong>Solo still works.</strong> Playing alone, none of this runs: you're simply your own host.</li>
+        </ul>
+        <p>
+            Each kind of shared event has a name and a direction, like <code>hit</code> (teammate to host), <code>hurt</code> (host to one player)
+            or <code>win</code> (host to everyone). The full list, with who sends each one and who receives it, lives in a comment at the top of <code>coop.js</code>, so the whole system can be understood from one place.
+        </p>
+    </section>
+
+    <section class="cs-section">
+        <h2>Treating the client as untrusted</h2>
+        <p>Anything a browser sends can be edited by the person using it, so the server and the games double-check what they receive:</p>
+        <ul>
+            <li>The server only copies the position fields it expects, and only if they're real numbers.</li>
+            <li>It cleans player names (allowed characters only, 16-character limit) before showing them to anyone else.</li>
+            <li>It checks door updates: only known door types, angles kept within a real range, and a limit on boarded-up planks.</li>
+            <li>It rejects malformed world events, and each game clamps any numbers it receives from teammates to sensible ranges.</li>
+            <li>It blocks path tricks like <code>../../</code> in the static file server, so nobody can read files outside the game folder.</li>
+            <li>It caps each lobby at 8 players and the server at 100 lobbies.</li>
+        </ul>
+    </section>
+
+    <section class="cs-section">
+        <h2>A much bigger world</h2>
+        <p>
+            The map grew from a few streets into a town with a tower plaza, a North End district and a walled evac route, plus a police station,
+            apartment block, pharmacy, hardware store, diner, gas station, farm and chapel. The police station and apartments have second floors
+            with working stairs that husks can follow you up. There are three weapons (pistol, shotgun, machete), three husk types, Bloom nests
+            that keep spawning husks until you destroy them, and 33 custom Blockbench models, from husks and weapons to church pews and fire hydrants.
         </p>
     </section>
 
@@ -138,9 +251,9 @@
                 <p><strong>Fix:</strong> I grouped each building's parts by material and merged them into single meshes, cutting the work the GPU does every frame.</p>
             </article>
             <article>
-                <h3>Starting the networking over</h3>
-                <p><strong>Problem:</strong> My first attempt at the client networking code wasn't working the way I wanted.</p>
-                <p><strong>Fix:</strong> Instead of patching it, I started the file over and organized it around the four jobs it has: connecting, sending my state, receiving snapshots, and drawing other players. <!-- RENEE: add a sentence on what specifically went wrong the first time --></p>
+                <h3>Who decides what's real?</h3>
+                <p><strong>Problem:</strong> In a shared world, two players' games can disagree about the same husk.</p>
+                <p><strong>Fix:</strong> One game, the host's, is the source of truth. Everyone else sends requests and copies the result, so there's only ever one answer.</p>
             </article>
         </div>
     </section>
@@ -157,20 +270,23 @@
     <section class="cs-section">
         <h2>What I'd do next</h2>
         <ul>
-            <li><strong>Server-authoritative combat.</strong> Shots are cosmetic for other players right now. Next I'd have the server decide hits and husk health so everyone sees the same fight and cheating gets harder.</li>
+            <li><strong>Move the world onto the server.</strong> Right now the host's browser runs the world. Running it on the server instead would make cheating much harder and remove the hiccup when a host leaves.</li>
             <li><strong>Client-side prediction</strong> to hide network delay on slower connections.</li>
             <li><strong>A persistent leaderboard</strong> backed by a small database.</li>
+            <li><strong>More to play.</strong> I'm still adding to the game, so this page will keep growing with it.</li>
         </ul>
     </section>
 
     <section class="cs-section cs-takeaways">
         <h2>What I learned</h2>
         <p>
-            Real-time systems are about trade-offs between update rate, bandwidth and smoothness. Any input from a client has to be validated.
+            Real-time systems are about trade-offs between update rate, bandwidth and smoothness. A shared world needs one source of truth,
+            and every input from a client has to be validated. Organizing code early makes big changes possible later.
             And shipping something people can actually click and play teaches you more than a feature list does.
         </p>
         <div class="btn-row">
             <a class="btn" href="https://last-signal-multiplayer.onrender.com/" target="_blank" rel="noopener">Play it</a>
+            <a class="btn btn-ghost" href="blog-syncing-8-players.html">Read the technical deep-dive</a>
             <a class="btn btn-ghost" href="index.html#contact">Talk to me about it</a>
         </div>
     </section>

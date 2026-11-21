@@ -37,7 +37,7 @@
         <a href="blog.html" class="back-link">&larr; All posts</a>
 
         <header class="post-head">
-            <p class="post-meta"><time datetime="2026-11-19">November 19, 2026</time> · 7 min read</p>
+            <p class="post-meta"><time datetime="2026-11-19">November 19, 2026</time> · 10 min read</p>
             <h1>How I synced 8 players in a browser game with Socket.IO</h1>
             <p class="lede">
                 The Last Signal started as a single-player Three.js shooter. Making it multiplayer meant every browser had to
@@ -45,6 +45,10 @@
                 Here's how I approached it, with the actual code.
             </p>
         </header>
+
+        <div class="post-cta post-update">
+            <p><strong>Update, November 20, 2026:</strong> Sections 1–4 describe the first multiplayer version, which synced where players were but not the world itself, so everyone was fighting their own copy of the husks. I've since made the game truly co-op. Section 5 covers how.</p>
+        </div>
 
         <figure class="cs-figure">
             <img src="images/last-signal-mltiplr.png" alt="First-person view in The Last Signal multiplayer: a pistol aimed down a dusty road toward a ruined town">
@@ -103,13 +107,15 @@ export function sendState(dt, position, rotY) {
             </p>
             <pre><code>const TICK_RATE = 20;
 setInterval(() =&gt; {
-    const list = introduced();          // players who have joined the game
-    if (list.length &lt; 2) return;        // nobody to sync with yet
-    io.emit('snapshot', list.map(publicInfo));
+    for (const lobby of lobbies.values()) {
+        if (lobby.players.size &lt; 2) continue;   // nobody to sync with yet
+        io.to(lobby.code).emit('snapshot', [...lobby.players.values()].map(publicInfo));
+    }
 }, 1000 / TICK_RATE);</code></pre>
             <p>
-                Now each browser receives exactly 20 messages a second no matter how many people are playing. The
-                <code>list.length &lt; 2</code> check also means a server with one lonely player sends nothing at all.
+                Now each browser receives exactly 20 messages a second no matter how many people are playing. Since I added
+                lobbies (one server, many separate games with join codes), the server loops over each game and uses Socket.IO rooms
+                (<code>io.to(lobby.code)</code>) so a snapshot only goes to players in that lobby. A lobby with one lonely player gets nothing at all.
             </p>
 
             <h2>3. Interpolate so nobody teleports</h2>
@@ -160,12 +166,55 @@ r.root.rotation.y += diff * t;</code></pre>
                 can read files outside the game folder.
             </p>
 
+            <h2>5. Update: from side by side to truly co-op</h2>
+            <p>
+                Everything above makes players <em>visible</em> to each other. But in that first version, every browser still ran its
+                own copy of the world: its own husks, its own radio parts, its own tower. You could watch a friend fight a husk that
+                didn't exist in your game. You were playing next to each other, not with each other.
+            </p>
+            <p>
+                Sharing one world raises a hard question: if two players shoot the same husk at the same moment, whose game is right?
+                My answer was to make one game the source of truth: <strong>the host's.</strong> The host's husks think and attack.
+                Everyone else's husks are puppets that copy the host's 10 times a second:
+            </p>
+            <pre><code>const HUSK_SEND_RATE = 10; // husk updates per second from the host
+
+export function shareHusks(dt) {
+    if (!inLobby() || !runsWorld()) return;   // only the host shares husks
+    huskTimer -= dt;
+    if (huskTimer &gt; 0) return;
+    huskTimer = 1 / HUSK_SEND_RATE;
+    sendWorld('husks', huskSnapshot());
+}</code></pre>
+            <p>
+                That means a teammate can't just kill a husk on their own screen. When they shoot one, their game shows the hit, then
+                sends the host a <em>request</em>:
+            </p>
+            <pre><code>if (h.puppet) {
+    // not our husk: show the hit, and tell the host so it takes the damage
+    flashRed(h.mesh);
+    sendWorld('hit', { id: h.id, amount, dx: dir.x, dz: dir.z, force }, 'host');
+    return;
+}</code></pre>
+            <p>
+                The host applies the damage to the real husk, then reports back: points to whoever got the kill, damage to whoever got
+                bitten, loot to everyone. The same pattern of "requests go to the host, results come back" covers shoves, nests, the evac
+                barricade and gunfire noise. Shared events like picking up an item, opening a drawer or blowing up a barrel go to everyone,
+                so the whole lobby works toward the same radio parts, the same tower and one win screen.
+            </p>
+            <p>A few details made it hold together:</p>
+            <ul>
+                <li><strong>Late joiners catch up.</strong> When someone joins mid-run, the host sends them everything that already happened: parts found, nests destroyed, barrels blown and the tower's progress.</li>
+                <li><strong>Host handoff.</strong> If the host leaves, the next host's puppet husks start thinking for themselves, and the run keeps going.</li>
+                <li><strong>Still untrusted.</strong> The host clamps everything it receives. A hit request can't do more than 20 damage, no matter what a modified browser sends.</li>
+                <li><strong>Solo still works.</strong> Playing alone, none of this runs: you're simply your own host.</li>
+            </ul>
+
             <h2>What I'd do next</h2>
             <p>
-                Right now, gunfire from other players is cosmetic: you see their tracers, but each browser decides its own hits.
-                That's fine for a cooperative game, but the next step would be <strong>server-authoritative combat</strong>,
-                where the server decides hits and enemy health so everyone sees the same fight. After that, client-side prediction
-                would hide network delay on slow connections.
+                Right now the host's <em>browser</em> runs the world. That works well for friends playing together, but a player who
+                controls the host could still bend the rules, and there's a brief hiccup when a host leaves. The next step would be
+                moving the world onto the server itself. After that, client-side prediction would hide network delay on slow connections.
             </p>
 
             <h2>Takeaways</h2>
@@ -174,6 +223,7 @@ r.root.rotation.y += diff * t;</code></pre>
                 <li><strong>Batch on the server.</strong> One snapshot per tick keeps traffic predictable as players join.</li>
                 <li><strong>Smooth on the client.</strong> Interpolation, with angle wrapping, does more for how it <em>feels</em> than a higher send rate would.</li>
                 <li><strong>Validate everything.</strong> If it came from a browser, check it before you use it.</li>
+                <li><strong>Pick one source of truth.</strong> A shared world needs exactly one game deciding what's real; everyone else sends requests and copies the result.</li>
             </ul>
 
             <div class="post-cta">

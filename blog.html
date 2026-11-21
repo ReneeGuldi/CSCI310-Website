@@ -33,12 +33,12 @@
         <h1>Blog</h1>
         <p class="blog-intro">Notes on things I've built: what worked, what broke, and what I'd do differently.</p>
 
-        <!-- Newest post listed first -->
+        <!-- Newest post first. To add a post: copy one <article> block, change the link, date, title and summary. -->
         <div class="post-list">
             <article class="post-card">
-                <p class="post-meta"><time datetime="2026-11-19">November 19, 2026</time> · 7 min read</p>
+                <p class="post-meta"><time datetime="2026-11-19">November 19, 2026</time> · Updated Nov 20 · 10 min read</p>
                 <h2><a href="blog-syncing-8-players.html">How I synced 8 players in a browser game with Socket.IO</a></h2>
-                <p>Adding multiplayer to The Last Signal meant solving three problems: how often to send updates, how to make other players move smoothly between them, and how to stop players from cheating. Here's how each one works, with the actual code.</p>
+                <p>Adding multiplayer to The Last Signal meant deciding how often to send updates, keeping movement smooth, and stopping cheating. Then I made it truly co-op, with the host's game as the one source of truth. Here's how each piece works, with the actual code.</p>
                 <ul class="chip-row" aria-label="Topics">
                     <li class="chip">Node.js</li>
                     <li class="chip">Socket.IO</li>
